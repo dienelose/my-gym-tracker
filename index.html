@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>맞춤 헬스 가이드 & 운동 기록 트래커</title>
+  <!-- PWA 및 안드로이드 독립 앱 설정 메타 태그 -->
+  <meta name="theme-color" content="#020617">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="application-name" content="헬스 트래커">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap');
+    * { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
+    .custom-scroll::-webkit-scrollbar { width: 5px; height: 5px; }
+    .custom-scroll::-webkit-scrollbar-track { background: #0f172a; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+    .active-set { background-color: rgba(37, 99, 235, 0.15); border-color: rgba(59, 130, 246, 0.5); }
+    .completed-set { background-color: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); text-decoration: line-through; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen pb-28 custom-scroll selection:bg-blue-600 selection:text-white">
+
+  <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 py-3 shadow-lg">
+    <div class="max-w-xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+          <i class="fa-solid fa-dumbbell text-lg"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h1 class="text-base font-extrabold text-white leading-tight">아파트 헬스 트래커</h1>
+            <span class="text-[10px] bg-blue-500/20 text-blue-400 font-bold px-1.5 py-0.5 rounded border border-blue-500/30">기록저장</span>
+          </div>
+          <p class="text-[11px] text-slate-400">가슴 리프팅 & 뱃살 감량 60분 루틴</p>
+        </div>
+      </div>
+      
+      <div class="text-right">
+        <div id="todayDateDisplay" class="text-xs font-bold text-slate-200">2026.10.01 (목)</div>
+        <span class="text-[10px] text-emerald-400 font-semibold flex items-center justify-end gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> 자동 동기화 중
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-xl mx-auto px-4 mt-4 space-y-4">
+    <!-- 가슴 처짐 개선 & 뱃살 감량 솔루션 브리핑 카드 -->
+    <div class="bg-gradient-to-br from-indigo-950/70 via-slate-900 to-slate-900 border border-indigo-500/30 rounded-2xl p-4 shadow-xl relative overflow-hidden">
+      <div class="flex items-start gap-3">
+        <div class="w-9 h-9 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center shrink-0 mt-0.5">
+          <i class="fa-solid fa-bullseye text-base"></i>
+        </div>
+        <div class="space-y-1">
+          <h2 class="text-xs font-bold text-indigo-300 tracking-wide uppercase">맞춤 처방 핵심 포인트</h2>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            처진 가슴은 <span class="text-amber-400 font-bold">상부 흉근(인클라인)</span>을 채우고, 뱃살은 <span class="text-rose-400 font-bold">하체 대근육+천국의 계단</span>으로 껍질을 태워야 빠르게 올라붙습니다. 세트별 무게·횟수를 남겨 점진적 과부하를 실천해 보세요!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 세트 휴식용 인터랙티브 타이머 바 -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3 flex items-center justify-between shadow-md">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+          <i class="fa-solid fa-stopwatch text-lg"></i>
+        </div>
+        <div>
+          <span class="text-[10px] text-slate-400 font-medium block">세트 간 휴식 카운트다운</span>
+          <span id="timerDisplay" class="text-xl font-black tracking-tight text-blue-400 font-mono">01:00</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <button onclick="startTimer(60)" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white text-xs font-bold rounded-xl transition shadow">
+          1분 시작
+        </button>
+        <button onclick="startTimer(90)" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 text-xs font-medium rounded-xl transition">
+          90초
+        </button>
+        <button onclick="resetTimer()" class="w-8 h-8 flex items-center justify-center bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-400 rounded-xl transition">
+          <i class="fa-solid fa-rotate-right text-xs"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-2 bg-slate-900 p-1.5 rounded-2xl border border-slate-800 text-xs font-bold">
+      <button onclick="switchTab('dayA')" id="btn-dayA" class="py-2.5 rounded-xl transition-all flex flex-col items-center justify-center gap-0.5 bg-blue-600 text-white shadow-md">
+        <span class="font-extrabold flex items-center gap-1.5">
+          <i class="fa-solid fa-fire text-amber-300 text-xs"></i> Day A (가슴 리프팅 & 복부)
+        </span>
+        <span class="text-[10px] opacity-80">월 / 목 루틴 (총 60분)</span>
+      </button>
+      <button onclick="switchTab('dayB')" id="btn-dayB" class="py-2.5 rounded-xl transition-all flex flex-col items-center justify-center gap-0.5 text-slate-400 hover:text-white">
+        <span class="font-extrabold flex items-center gap-1.5">
+          <i class="fa-solid fa-shield-halved text-emerald-400 text-xs"></i> Day B (등 교정 & 어깨 프레임)
+        </span>
+        <span class="text-[10px] opacity-80">수 / 토 루틴 (총 60분)</span>
+      </button>
+    </div>
+
+    <section id="content-dayA" class="space-y-4">
+      <div class="flex items-center justify-between px-1">
+        <span class="text-xs font-extrabold text-blue-400 flex items-center gap-1.5">
+          <i class="fa-solid fa-list-check"></i> DAY A : 가슴 상부 리프팅 & 복부 체지방 태우기
+        </span>
+        <span class="text-[11px] text-slate-400">총 5개 종목</span>
+      </div>
+
+      <!-- 1. 인클라인 체스트 프레스 머신 (18번) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-incline-press">
+        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
+          <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=700&q=80" 
+               alt="인클라인 체스트 프레스 머신" 
+               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Incline+Chest+Press';">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          <div class="absolute top-3 left-3 flex items-center gap-2">
+            <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md flex items-center gap-1">
+              <i class="fa-solid fa-tag text-[10px]"></i> 기구 [ 18번 ]
+            </span>
+            <span class="px-2 py-0.5 bg-blue-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
+              윗가슴 끌어올리기 (1순위)
+            </span>
+          </div>
+          <div class="absolute bottom-2.5 left-3 right-3 flex items-end justify-between">
+            <div>
+              <h3 class="text-base font-black text-white leading-tight">플레이트 인클라인 체스트 프레스</h3>
+              <p class="text-[11px] text-slate-300">사선 위로 밀어 쇄골 아래 볼륨을 채워 처진 가슴을 리프팅합니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <span class="text-slate-400"><i class="fa-solid fa-info-circle text-blue-400 mr-1"></i>목표: <strong>12~15회 × 4세트</strong></span>
+            <span class="text-amber-400 font-bold">휴식: 60초</span>
+          </div>
+
+          <!-- 기록 테이블 -->
+          <div class="space-y-1.5" id="sets-incline-press">
+            <!-- 자바스크립트로 세트 렌더링 -->
+          </div>
+
+          <div class="flex items-center justify-between pt-1">
+            <button onclick="addSet('incline-press')" class="text-xs text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-blue-500/10 transition">
+              <i class="fa-solid fa-plus-circle"></i> 세트 추가
+            </button>
+            <button onclick="saveMachineData('incline-press')" class="text-xs bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold py-1.5 px-3 rounded-xl transition flex items-center gap-1">
+              <i class="fa-solid fa-floppy-disk text-[11px]"></i> 오늘 기록 저장
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 시티드 체스트 프레스 머신 (37번) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-chest-press">
+        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=700&q=80" 
+               alt="시티드 체스트 프레스 머신" 
+               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Chest+Press+Machine';">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          <div class="absolute top-3 left-3 flex items-center gap-2">
+            <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md">
+              기구 [ 37번 ]
+            </span>
+            <span class="px-2 py-0.5 bg-emerald-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
+              가슴 중앙 두께감
+            </span>
+          </div>
+          <div class="absolute bottom-2.5 left-3 right-3">
+            <h3 class="text-base font-black text-white leading-tight">시티드 체스트 프레스 머신</h3>
+            <p class="text-[11px] text-slate-300">손잡이를 유두 라인에 맞추고 가슴 전체 부피를 만들어 처짐을 방지합니다.</p>
+          </div>
+        </div>
+
+        <div class="p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <span class="text-slate-400"><i class="fa-solid fa-info-circle text-blue-400 mr-1"></i>목표: <strong>12회 × 3세트</strong></span>
+            <span class="text-amber-400 font-bold">휴식: 60초</span>
+          </div>
+
+          <div class="space-y-1.5" id="sets-chest-press"></div>
+
+          <div class="flex items-center justify-between pt-1">
+            <button onclick="addSet('chest-press')" class="text-xs text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-blue-500/10 transition">
+              <i class="fa-solid fa-plus-circle"></i> 세트 추가
+            </button>
+            <button onclick="saveMachineData('chest-press')" class="text-xs bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold py-1.5 px-3 rounded-xl transition flex items-center gap-1">
+              <i class="fa-solid fa-floppy-disk text-[11px]"></i> 오늘 기록 저장
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 펙덱 플라이 머신 (Kaesun) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-pec-fly">
+        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
+          <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=700&q=80" 
+               alt="펙덱 플라이 머신" 
+               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Pec+Deck+Fly';">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          <div class="absolute top-3 left-3 flex items-center gap-2">
+            <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md">
+              Kaesun 머신
+            </span>
+            <span class="px-2 py-0.5 bg-purple-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
+              가슴 모으기 & 안쪽 골 형성
+            </span>
+          </div>
+          <div class="absolute bottom-2.5 left-3 right-3">
+            <h3 class="text-base font-black text-white leading-tight">펙덱 플라이 (가슴 모으기)</h3>
+            <p class="text-[11px] text-slate-300">벌어진 가슴을 안쪽으로 강하게 조여 윤곽을 또렷하게 세워줍니다.</p>
+          </div>
+        </div>
+
+        <div class="p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <span class="text-slate-400"><i class="fa-solid fa-info-circle text-blue-400 mr-1"></i>목표: <strong>15회 × 3세트</strong></span>
+            <span class="text-amber-400 font-bold">휴식: 60초</span>
+          </div>
+
+          <div class="space-y-1.5" id="sets-pec-fly"></div>
+
+          <div class="flex items-center justify-between pt-1">
+            <button onclick="addSet('pec-fly')" class="text-xs text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-blue-500/10 transition">
+              <i class="fa-solid fa-plus-circle"></i> 세트 추가
+            </button>
+            <button onclick="saveMachineData('pec-fly')" class="text-xs bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold py-1.5 px-3 rounded-xl transition flex items-center gap-1">
+              <i class="fa-solid fa-floppy-disk text-[11px]"></i> 오늘 기록 저장
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. 시티드 레그 프레스 머신 (36번) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-leg-press">
+        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
+          <img src="https://images.unsplash.com/photo-1434682881908-b43d0467b798?auto=format&fit=crop&w=700&q=80" 
+               alt="시티드 레그 프레스 머신" 
+               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Seated+Leg+Press';">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          <div class="absolute top-3 left-3 flex items-center gap-2">
+            <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md">
+              기구 [ 36번 ]
+            </span>
+            <span class="px-2 py-0.5 bg-blue-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
+              대근육 기초대사량 폭발
+            </span>
+          </div>
+          <div class="absolute bottom-2.5 left-3 right-3">
+            <h3 class="text-base font-black text-white leading-tight">시티드 레그 프레스 머신</h3>
+            <p class="text-[11px] text-slate-300">하체 대근육을 써서 뱃살 피하지방을 태울 전신 칼로리를 소모합니다.</p>
+          </div>
+        </div>
+
+        <div class="p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <span class="text-slate-400"><i class="fa-solid fa-info-circle text-blue-400 mr-1"></i>목표: <strong>15회 × 3세트</strong> (무릎 95%만 펴기)</span>
+            <span class="text-amber-400 font-bold">휴식: 60초</span>
+          </div>
+
+          <div class="space-y-1.5" id="sets-leg-press"></div>
+
+          <div class="flex items-center justify-between pt-1">
+            <button onclick="addSet('leg-press')" class="text-xs text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-blue-500/10 transition">
+              <i class="fa-solid fa-plus-circle"></i> 세트 추가
+            </button>
+            <button onclick="saveMachineData('leg-press')" class="text-xs bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold py-1.5 px-3 rounded-xl transition flex items-center gap-1">
+              <i class="fa-solid fa-floppy-disk text-[11px]"></i> 오늘 기록 저장
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. 천국의 계단 (ORGO) -->
+      <div class="bg-gradient-to-br from-slate-900 via-rose-950/20 to-slate-900 border border-rose-800/40 rounded-2xl overflow-hidden shadow-lg">
+        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
+          <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=700&q=80" 
+               alt="천국의 계단 스텝밀" 
+               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Stair+Climber+ORGO';">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
+          <div class="absolute top-3 left-3 flex items-center gap-2">
+            <span class="px-2.5 py-1 bg-rose-600 text-white font-black text-xs rounded-lg shadow-md">
+              ORGO 대형 머신
+            </span>
+            <span class="px-2 py-0.5 bg-rose-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
+              아랫배·옆구리 지방 소각
+            </span>
+          </div>
+          <div class="absolute bottom-2.5 left-3 right-3">
+            <h3 class="text-base font-black text-white leading-tight">천국의 계단 (Stair Climber) · 15분</h3>
+            <p class="text-[11px] text-slate-300">러닝머신의 2배 지방 연소. 가슴을 펴고 속도 4~6으로 15분 지속합니다.</p>
+          </div>
+        </div>
+
+        <div class="p-4 space-y-3">
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+              <span class="text-slate-400 block text-[10px]">오늘 탄 시간</span>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <input type="number" id="cardio-time-a" placeholder="15" value="15" class="w-14 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-center font-bold text-white focus:outline-none focus:border-rose-500">
+                <span class="text-slate-300">분</span>
+              </div>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+              <span class="text-slate-400 block text-[10px]">평균 속도 레벨</span>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <input type="number" id="cardio-level-a" placeholder="5" value="5" class="w-14 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-center font-bold text-white focus:outline-none focus:border-rose-500">
+                <span class="text-slate-300">단계</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="saveCardioData('a')" class="w-full text-xs bg-rose-600 hover:bg-rose-500 active:scale-95 text-white font-bold py-2 rounded-xl transition shadow flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-check"></i> 천국의 계단 완료 기록하기
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="content-dayB" class="hidden space-y-4">
+      <div class="flex items-center justify-between px-1">
+        <span class="text-xs font-extrabold text-emerald-400 flex items-center gap-1.5">
+          <i class="fa-solid fa-list-check"></i> DAY B : 등 교정 & 어깨 역삼각형 프레임
+        </span>
+        <span class="text-[11px] text-slate-400">총 5개 종목</span>
+      </div>
+
+      <!-- 1. 랫 풀다운 머신 (PROOF) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-lat-pulldown">
+        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
+          <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=700&q=80" 
+               alt="랫 풀다운 머신" 
+               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Lat+Pulldown+Machine';">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          <div class="absolute top-3 left-3 flex items-center gap-2">
+            <span class="px-2.5 py-1 bg-blue-600 text-white font-black text-xs rounded-lg shadow-md">
+              PROOF 로고 머신
+            </span>
+            <span class="px-2 py-0.5 bg-emerald-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
+              등 너비 & 라운드숄더 교정
+            </span>
+          </div>
+          <div class="absolute bottom-2.5 left-3 right-3">
+            <h3 class="text-base font-black text-white leading-tight">랫 풀다운 (Lat Pulldown)</h3>
+            <p class="text-[11px] text-slate-300">은색 바를 쇄골 쪽으로 당겨 날개뼈를 내리고 굽은 등을 펴줍니다.</p>
+          </div>
+        </div>
+
+        <div class="p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <span class="text-slate-400"><i class="fa-solid fa-info-circle text-blue-400 mr-1"></i>목표: <strong>12~15회 × 4세트</strong></span>
+            <span class="text-emerald-400 font-bold">휴식: 60초</span>
+          </div>
+
+          <div class="space-y-1.5" id="sets-lat-pulldown"></div>
+
+          <div class="flex items-center justify-between pt-1">
+            <button onclick="addSet('lat-pulldown')" class="text-xs text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-blue-500/10 transition">
+              <i class="fa-solid fa-plus-circle"></i> 세트 추가
+            </button>
+            <button onclick="saveMachineData('lat-pulldown')" class="text-xs bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold py-1.5 px-3 rounded-xl transition flex items-center gap-1">
+              <i class="fa-solid fa-floppy-disk text-[11px]"></i> 오늘 기록 저장
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 시티드 로우 머신 (OXIZEN / Plate Loaded) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-seated-row">
+        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
+          <img src="https://images.unsplash.com/photo-1521804906057-1df8fdb718b7?auto=format&fit=crop&w=700&q=80" 
+               alt="시티드 로우 머신" 
+               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Seated+Row+Machine';">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          <div class="absolute top-3 left-3 flex items-center gap-2">
+            <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md">
+              가슴패드 로우 머신
+            </span>
+            <span class="px-2 py-0.5 bg-blue-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
+              등 안쪽 조이기 & 가슴 리프팅
+            </span>
+          </div>
+          <div class="absolute bottom-2.5 left-3 right-3">
+            <h3 class="text-base font-black text-white leading-tight">시티드 로우 (등 안쪽 조이기)</h3>
+            <p class="text-[11px] text-slate-300">가슴을 패드에 대고 당겨 날개뼈를 모으면 가슴이 자연스레 전방으로 펴집니다.</p>
+          </div>
+        </div>
+
+        <div class="p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <span class="text-slate-400"><i class="fa-solid fa-info-circle text-blue-400 mr-1"></i>목표: <strong>12회 × 3세트</strong></span>
+            <span class="text-emerald-400 font-bold">휴식: 60초</span>
+          </div>
+
+          <div class="space-y-1.5" id="sets-seated-row"></div>
+
+          <div class="flex items-center justify-between pt-1">
+            <button onclick="addSet('seated-row')" class="text-xs text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-blue-500/10 transition">
+              <i class="fa-solid fa-plus-circle"></i> 세트 추가
+            </button>
+            <button onclick="saveMachineData('seated-row')" class="text-xs bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold py-1.5 px-3 rounded-xl transition flex items-center gap-1">
+              <i class="fa-solid fa-floppy-disk text-[11px]"></i> 오늘 기록 저장
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 시티드 숄더 프레스 머신 (38번) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-shoulder-press">
+        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
+          <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=700&q=80" 
+               alt="시티드 숄더 프레스 머신" 
+               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Shoulder+Press+Machine';">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          <div class="absolute top-3 left-3 flex items-center gap-2">
+            <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md">
+              기구 [ 38번 ]
+            </span>
+            <span class="px-2 py-0.5 bg-indigo-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
+              어깨 볼륨 & 허리 대비 효과
+            </span>
+          </div>
+          <div class="absolute bottom-2.5 left-3 right-3">
+            <h3 class="text-base font-black text-white leading-tight">시티드 숄더 프레스 머신</h3>
+            <p class="text-[11px] text-slate-300">어깨 뽕을 채워 상체 역삼각형을 만들면 상대적으로 허리가 가늘어 보입니다.</p>
+          </div>
+        </div>
+
+        <div class="p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <span class="text-slate-400"><i class="fa-solid fa-info-circle text-blue-400 mr-1"></i>목표: <strong>12회 × 3세트</strong></span>
+            <span class="text-emerald-400 font-bold">휴식: 60초</span>
+          </div>
+
+          <div class="space-y-1.5" id="sets-shoulder-press"></div>
+
+          <div class="flex items-center justify-between pt-1">
+            <button onclick="addSet('shoulder-press')" class="text-xs text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-blue-500/10 transition">
+              <i class="fa-solid fa-plus-circle"></i> 세트 추가
+            </button>
+            <button onclick="saveMachineData('shoulder-press')" class="text-xs bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold py-1.5 px-3 rounded-xl transition flex items-center gap-1">
+              <i class="fa-solid fa-floppy-disk text-[11px]"></i> 오늘 기록 저장
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. 백 익스텐션 로망체어 (27번) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-back-ext">
+        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
+          <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=700&q=80" 
+               alt="백 익스텐션 로망체어" 
+               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Back+Extension+Bench';">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          <div class="absolute top-3 left-3 flex items-center gap-2">
+            <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md">
+              기구 [ 27번 ]
+            </span>
+            <span class="px-2 py-0.5 bg-amber-500/80 backdrop-blur-md text-slate-950 text-[11px] font-semibold rounded-md">
+              아랫배 튀어나옴 방지 코어
+            </span>
+          </div>
+          <div class="absolute bottom-2.5 left-3 right-3">
+            <h3 class="text-base font-black text-white leading-tight">백 익스텐션 (로망 체어)</h3>
+            <p class="text-[11px] text-slate-300">허리와 둔근을 세워 골반 전방경사를 교정하고 아랫배를 잡아줍니다.</p>
+          </div>
+        </div>
+
+        <div class="p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <span class="text-slate-400"><i class="fa-solid fa-info-circle text-blue-400 mr-1"></i>목표: <strong>맨몸 12회 × 3세트</strong> (허리 꺾지 않기)</span>
+            <span class="text-emerald-400 font-bold">휴식: 60초</span>
+          </div>
+
+          <div class="space-y-1.5" id="sets-back-ext"></div>
+
+          <div class="flex items-center justify-between pt-1">
+            <button onclick="addSet('back-ext')" class="text-xs text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-blue-500/10 transition">
+              <i class="fa-solid fa-plus-circle"></i> 세트 추가
+            </button>
+            <button onclick="saveMachineData('back-ext')" class="text-xs bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold py-1.5 px-3 rounded-xl transition flex items-center gap-1">
+              <i class="fa-solid fa-floppy-disk text-[11px]"></i> 오늘 기록 저장
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. 유산소: 일립티컬 머신 (E500) -->
+      <div class="bg-gradient-to-br from-slate-900 via-emerald-950/20 to-slate-900 border border-emerald-800/40 rounded-2xl overflow-hidden shadow-lg">
+        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
+          <img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=700&q=80" 
+               alt="일립티컬 머신" 
+               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Elliptical+E500';">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
+          <div class="absolute top-3 left-3 flex items-center gap-2">
+            <span class="px-2.5 py-1 bg-cyan-600 text-white font-black text-xs rounded-lg shadow-md">
+              E500 머신
+            </span>
+            <span class="px-2 py-0.5 bg-emerald-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
+              관절 무충격 전신 유산소
+            </span>
+          </div>
+          <div class="absolute bottom-2.5 left-3 right-3">
+            <h3 class="text-base font-black text-white leading-tight">일립티컬 머신 또는 경사 트레드밀 · 20분</h3>
+            <p class="text-[11px] text-slate-300">무릎에 충격 없이 전신 지방을 부드럽게 태우며 수면을 방해하지 않습니다.</p>
+          </div>
+        </div>
+
+        <div class="p-4 space-y-3">
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+              <span class="text-slate-400 block text-[10px]">오늘 탄 시간</span>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <input type="number" id="cardio-time-b" placeholder="20" value="20" class="w-14 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-center font-bold text-white focus:outline-none focus:border-emerald-500">
+                <span class="text-slate-300">분</span>
+              </div>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+              <span class="text-slate-400 block text-[10px]">저항 강도</span>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <input type="number" id="cardio-level-b" placeholder="4" value="4" class="w-14 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-center font-bold text-white focus:outline-none focus:border-emerald-500">
+                <span class="text-slate-300">단계</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="saveCardioData('b')" class="w-full text-xs bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold py-2 rounded-xl transition shadow flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-check"></i> 일립티컬 유산소 완료 기록하기
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
+      <div class="flex items-center justify-between">
+        <h3 class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+          <i class="fa-solid fa-clock-rotate-left text-blue-400"></i> 최근 저장된 운동 기록 요약
+        </h3>
+        <div class="flex items-center gap-2">
+          <button onclick="exportData()" class="text-[11px] text-blue-400 hover:text-blue-300 transition flex items-center gap-0.5">
+            <i class="fa-solid fa-download"></i> 백업
+          </button>
+          <label class="text-[11px] text-emerald-400 hover:text-emerald-300 transition cursor-pointer flex items-center gap-0.5">
+            <i class="fa-solid fa-upload"></i> 복원
+            <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="importData(event)">
+          </label>
+          <span class="text-slate-700">|</span>
+          <button onclick="clearAllLogs()" class="text-[11px] text-slate-500 hover:text-rose-400 transition">초기화</button>
+        </div>
+      </div>
+      <div id="logsHistoryDisplay" class="text-xs text-slate-400 bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
+        기록이 아직 없습니다. 기구별로 오늘 든 무게와 횟수를 입력하고 [저장]을 눌러보세요!
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-800/95 border border-slate-700 text-white px-4 py-2.5 rounded-2xl shadow-2xl text-xs font-semibold opacity-0 pointer-events-none transition-all duration-300 z-50 flex items-center gap-2 max-w-sm w-max">
+    <i id="toastIcon" class="fa-solid fa-circle-check text-blue-400"></i>
+    <span id="toastMessage">알림</span>
+  </div>
+
+  <script>
+    // 기구별 기본 세트 구성 데이터
+    const DEFAULT_CONFIGS = {
+      'incline-press': { defaultKg: 10, defaultReps: 12, setCount: 4, label: '인클라인 프레스 (18번)' },
+      'chest-press': { defaultKg: 25, defaultReps: 12, setCount: 3, label: '시티드 체스트 프레스 (37번)' },
+      'pec-fly': { defaultKg: 20, defaultReps: 15, setCount: 3, label: '펙덱 플라이 (Kaesun)' },
+      'leg-press': { defaultKg: 40, defaultReps: 15, setCount: 3, label: '시티드 레그 프레스 (36번)' },
+      'lat-pulldown': { defaultKg: 25, defaultReps: 12, setCount: 4, label: '랫 풀다운 (PROOF)' },
+      'seated-row': { defaultKg: 20, defaultReps: 12, setCount: 3, label: '시티드 로우 머신' },
+      'shoulder-press': { defaultKg: 15, defaultReps: 12, setCount: 3, label: '시티드 숄더 프레스 (38번)' },
+      'back-ext': { defaultKg: 0, defaultReps: 12, setCount: 3, label: '백 익스텐션 (27번)' }
+    };
+
+    // 오늘 날짜 표시
+    function initDate() {
+      const now = new Date();
+      const days = ['일', '월', '화', '수', '목', '금', '토'];
+      const str = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} (${days[now.getDay()]})`;
+      document.getElementById('todayDateDisplay').innerText = str;
+    }
+
+    // 탭 전환
+    function switchTab(tab) {
+      const dayA = document.getElementById('content-dayA');
+      const dayB = document.getElementById('content-dayB');
+      const btnA = document.getElementById('btn-dayA');
+      const btnB = document.getElementById('btn-dayB');
+
+      if (tab === 'dayA') {
+        dayA.classList.remove('hidden');
+        dayB.classList.add('hidden');
+        btnA.classList.add('bg-blue-600', 'text-white', 'shadow-md');
+        btnA.classList.remove('text-slate-400');
+        btnB.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
+        btnB.classList.add('text-slate-400');
+      } else {
+        dayB.classList.remove('hidden');
+        dayA.classList.add('hidden');
+        btnB.classList.add('bg-blue-600', 'text-white', 'shadow-md');
+        btnB.classList.remove('text-slate-400');
+        btnA.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
+        btnA.classList.add('text-slate-400');
+      }
+    }
+
+    // 각 기구의 세트 입력 UI 렌더링
+    function renderMachineSets(machineId) {
+      const container = document.getElementById(`sets-${machineId}`);
+      if (!container) return;
+
+      const saved = localStorage.getItem(`workout_today_${machineId}`);
+      let setsData = [];
+
+      if (saved) {
+        try {
+          setsData = JSON.parse(saved);
+        } catch (e) {
+          setsData = [];
+        }
+      }
+
+      if (!setsData || setsData.length === 0) {
+        const conf = DEFAULT_CONFIGS[machineId];
+        setsData = [];
+        for (let i = 1; i <= conf.setCount; i++) {
+          setsData.push({
+            set: i,
+            kg: conf.defaultKg,
+            reps: conf.defaultReps,
+            done: false
+          });
+        }
+      }
+
+      container.innerHTML = '';
+      setsData.forEach((item, index) => {
+        const row = document.createElement('div');
+        row.className = `flex items-center justify-between p-2 rounded-xl border border-slate-800 bg-slate-950/70 transition ${item.done ? 'border-emerald-500/40 bg-emerald-500/10' : ''}`;
+        row.id = `row-${machineId}-${index}`;
+
+        row.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="w-6 text-center text-xs font-bold text-slate-400">${item.set}세트</span>
+            <div class="flex items-center gap-1 bg-slate-900 border border-slate-800 px-2 py-1 rounded-lg">
+              <input type="number" id="kg-${machineId}-${index}" value="${item.kg}" class="w-12 bg-transparent text-center font-bold text-sm text-blue-400 focus:outline-none" min="0" step="2.5">
+              <span class="text-[10px] text-slate-500">kg</span>
+            </div>
+            <div class="flex items-center gap-1 bg-slate-900 border border-slate-800 px-2 py-1 rounded-lg">
+              <input type="number" id="reps-${machineId}-${index}" value="${item.reps}" class="w-10 bg-transparent text-center font-bold text-sm text-slate-200 focus:outline-none" min="1">
+              <span class="text-[10px] text-slate-500">회</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button onclick="toggleSetDone('${machineId}', ${index})" id="chk-${machineId}-${index}" class="px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 ${item.done ? 'bg-emerald-500 text-slate-950 shadow-sm' : 'bg-slate-800 text-slate-400 hover:text-white'}">
+              <i class="fa-solid ${item.done ? 'fa-check' : 'fa-play text-[10px]'}"></i> ${item.done ? '완료' : '완료체크'}
+            </button>
+            <button onclick="removeSet('${machineId}', ${index})" class="w-7 h-7 flex items-center justify-center text-slate-500 hover:text-rose-400 rounded-lg transition">
+              <i class="fa-solid fa-trash text-[11px]"></i>
+            </button>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    // 세트 추가
+    function addSet(machineId) {
+      const container = document.getElementById(`sets-${machineId}`);
+      const index = container.children.length;
+      const prevKg = document.getElementById(`kg-${machineId}-${index - 1}`)?.value || DEFAULT_CONFIGS[machineId].defaultKg;
+      const prevReps = document.getElementById(`reps-${machineId}-${index - 1}`)?.value || DEFAULT_CONFIGS[machineId].defaultReps;
+
+      const row = document.createElement('div');
+      row.className = "flex items-center justify-between p-2 rounded-xl border border-slate-800 bg-slate-950/70 transition";
+      row.id = `row-${machineId}-${index}`;
+
+      row.innerHTML = `
+        <div class="flex items-center gap-2">
+          <span class="w-6 text-center text-xs font-bold text-slate-400">${index + 1}세트</span>
+          <div class="flex items-center gap-1 bg-slate-900 border border-slate-800 px-2 py-1 rounded-lg">
+            <input type="number" id="kg-${machineId}-${index}" value="${prevKg}" class="w-12 bg-transparent text-center font-bold text-sm text-blue-400 focus:outline-none" min="0" step="2.5">
+            <span class="text-[10px] text-slate-500">kg</span>
+          </div>
+          <div class="flex items-center gap-1 bg-slate-900 border border-slate-800 px-2 py-1 rounded-lg">
+            <input type="number" id="reps-${machineId}-${index}" value="${prevReps}" class="w-10 bg-transparent text-center font-bold text-sm text-slate-200 focus:outline-none" min="1">
+            <span class="text-[10px] text-slate-500">회</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button onclick="toggleSetDone('${machineId}', ${index})" id="chk-${machineId}-${index}" class="px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 bg-slate-800 text-slate-400 hover:text-white">
+            <i class="fa-solid fa-play text-[10px]"></i> 완료체크
+          </button>
+          <button onclick="removeSet('${machineId}', ${index})" class="w-7 h-7 flex items-center justify-center text-slate-500 hover:text-rose-400 rounded-lg transition">
+            <i class="fa-solid fa-trash text-[11px]"></i>
+          </button>
+        </div>
+      `;
+      container.appendChild(row);
+      showToast(`${index + 1}번째 세트가 추가되었습니다.`);
+    }
+
+    // 세트 삭제
+    function removeSet(machineId, idx) {
+      const container = document.getElementById(`sets-${machineId}`);
+      if (container.children.length <= 1) {
+        showToast('최소 1개 세트는 유지되어야 합니다.');
+        return;
+      }
+      saveMachineData(machineId, false);
+      // 세트 데이터 갱신
+      let currentData = getMachineCurrentSets(machineId);
+      currentData.splice(idx, 1);
+      // 번호 재정렬
+      currentData.forEach((item, i) => { item.set = i + 1; });
+      localStorage.setItem(`workout_today_${machineId}`, JSON.stringify(currentData));
+      renderMachineSets(machineId);
+      showToast('세트가 삭제되었습니다.');
+    }
+
+    // 세트 완료 토글 & 휴식 타이머 자동 트리거
+    function toggleSetDone(machineId, index) {
+      const row = document.getElementById(`row-${machineId}-${index}`);
+      const chkBtn = document.getElementById(`chk-${machineId}-${index}`);
+      const isDone = chkBtn.classList.contains('bg-emerald-500');
+
+      if (!isDone) {
+        chkBtn.className = "px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 bg-emerald-500 text-slate-950 shadow-sm";
+        chkBtn.innerHTML = '<i class="fa-solid fa-check"></i> 완료';
+        row.classList.add('border-emerald-500/40', 'bg-emerald-500/10');
+        showToast(`🎉 ${index + 1}세트 완료! 60초 휴식을 시작합니다.`);
+        startTimer(60);
+      } else {
+        chkBtn.className = "px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 bg-slate-800 text-slate-400 hover:text-white";
+        chkBtn.innerHTML = '<i class="fa-solid fa-play text-[10px]"></i> 완료체크';
+        row.classList.remove('border-emerald-500/40', 'bg-emerald-500/10');
+      }
+      saveMachineData(machineId, false);
+    }
+
+    // 현재 화면 입력값 읽기
+    function getMachineCurrentSets(machineId) {
+      const container = document.getElementById(`sets-${machineId}`);
+      const sets = [];
+      for (let i = 0; i < container.children.length; i++) {
+        const kgVal = parseFloat(document.getElementById(`kg-${machineId}-${i}`)?.value || 0);
+        const repsVal = parseInt(document.getElementById(`reps-${machineId}-${i}`)?.value || 0);
+        const chkBtn = document.getElementById(`chk-${machineId}-${i}`);
+        const isDone = chkBtn?.classList.contains('bg-emerald-500') || false;
+        sets.push({ set: i + 1, kg: kgVal, reps: repsVal, done: isDone });
+      }
+      return sets;
+    }
+
+    // 기구별 데이터 영구 저장
+    function saveMachineData(machineId, showNotification = true) {
+      const sets = getMachineCurrentSets(machineId);
+      localStorage.setItem(`workout_today_${machineId}`, JSON.stringify(sets));
+
+      // 히스토리 로그 저장
+      const logKey = 'workout_summary_logs';
+      let logs = JSON.parse(localStorage.getItem(logKey) || '[]');
+      const label = DEFAULT_CONFIGS[machineId]?.label || machineId;
+
+      // 같은 기구의 오늘 날짜 엔트리 업데이트
+      const completedSets = sets.filter(s => s.done);
+      const summaryText = completedSets.length > 0 
+        ? `${completedSets.length}세트 완료 (${completedSets.map(s => `${s.kg}kg×${s.reps}회`).join(', ')})`
+        : `진행 중 (${sets.length}세트 설정됨)`;
+
+      const existingIndex = logs.findIndex(l => l.machineId === machineId);
+      const entry = {
+        machineId: machineId,
+        label: label,
+        summary: summaryText,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+
+      if (existingIndex >= 0) {
+        logs[existingIndex] = entry;
+      } else {
+        logs.unshift(entry);
+      }
+
+      localStorage.setItem(logKey, JSON.stringify(logs));
+      renderLogsHistory();
+
+      if (showNotification) {
+        showToast(`💾 [${label}] 기록이 안전하게 저장되었습니다!`);
+      }
+    }
+
+    // 유산소 운동 저장
+    function saveCardioData(type) {
+      const time = document.getElementById(`cardio-time-${type}`).value;
+      const level = document.getElementById(`cardio-level-${type}`).value;
+      const title = type === 'a' ? '천국의 계단 (ORGO)' : '일립티컬 (E500)';
+
+      const logKey = 'workout_summary_logs';
+      let logs = JSON.parse(localStorage.getItem(logKey) || '[]');
+      logs.unshift({
+        machineId: `cardio-${type}`,
+        label: title,
+        summary: `${time}분 지속 · 속도 ${level}레벨 완료`,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      });
+      localStorage.setItem(logKey, JSON.stringify(logs));
+      renderLogsHistory();
+      showToast(`🔥 [${title}] 유산소 기록이 저장되었습니다!`);
+    }
+
+    // 히스토리 렌더링
+    function renderLogsHistory() {
+      const container = document.getElementById('logsHistoryDisplay');
+      const logs = JSON.parse(localStorage.getItem('workout_summary_logs') || '[]');
+      if (logs.length === 0) {
+        container.innerHTML = '기록이 아직 없습니다. 기구별로 오늘 든 무게와 횟수를 입력하고 [저장]을 눌러보세요!';
+        return;
+      }
+
+      container.innerHTML = logs.map(item => `
+        <div class="flex items-center justify-between border-b border-slate-900 pb-1.5 last:border-0">
+          <div>
+            <span class="font-bold text-white text-xs block">${item.label}</span>
+            <span class="text-[11px] text-slate-400">${item.summary}</span>
+          </div>
+          <span class="text-[10px] text-blue-400 font-mono">${item.time}</span>
+        </div>
+      `).join('');
+    }
+
+    // 전체 기록 초기화
+    function clearAllLogs() {
+      const confirmed = window.confirm ? true : true; // In iframe, keep direct
+      Object.keys(DEFAULT_CONFIGS).forEach(key => {
+        localStorage.removeItem(`workout_today_${key}`);
+      });
+      localStorage.removeItem('workout_summary_logs');
+      Object.keys(DEFAULT_CONFIGS).forEach(key => renderMachineSets(key));
+      renderLogsHistory();
+      showToast('오늘 기록이 모두 초기화되었습니다.');
+    }
+
+    // 데이터 영구 보관용 JSON 백업 (다운로드)
+    function exportData() {
+      const backup = {
+        logs: JSON.parse(localStorage.getItem('workout_summary_logs') || '[]'),
+        machines: {}
+      };
+      Object.keys(DEFAULT_CONFIGS).forEach(key => {
+        const item = localStorage.getItem(`workout_today_${key}`);
+        if (item) backup.machines[key] = JSON.parse(item);
+      });
+
+      const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `gym_workout_backup_${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('📥 운동 기록 백업 파일이 저장되었습니다.');
+    }
+
+    // 데이터 복원 (파일 업로드)
+    function importData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed.logs) {
+            localStorage.setItem('workout_summary_logs', JSON.stringify(parsed.logs));
+          }
+          if (parsed.machines) {
+            Object.keys(parsed.machines).forEach(key => {
+              localStorage.setItem(`workout_today_${key}`, JSON.stringify(parsed.machines[key]));
+            });
+          }
+          Object.keys(DEFAULT_CONFIGS).forEach(id => renderMachineSets(id));
+          renderLogsHistory();
+          showToast('📤 운동 기록이 안전하게 복원되었습니다!');
+        } catch (err) {
+          showToast('올바른 백업 파일 형식이 아닙니다.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // 타이머 로직
+    let timerInterval = null;
+    let secondsLeft = 60;
+
+    function startTimer(duration) {
+      clearInterval(timerInterval);
+      secondsLeft = duration;
+      updateTimerDisplay();
+      timerInterval = setInterval(() => {
+        secondsLeft--;
+        updateTimerDisplay();
+        if (secondsLeft <= 0) {
+          clearInterval(timerInterval);
+          showToast('🔔 세트 휴식 시간 끝! 다음 세트를 시작하세요!');
+        }
+      }, 1000);
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      secondsLeft = 60;
+      updateTimerDisplay();
+      showToast('타이머가 1분으로 리셋되었습니다.');
+    }
+
+    function updateTimerDisplay() {
+      const mins = Math.floor(secondsLeft / 60);
+      const secs = secondsLeft % 60;
+      document.getElementById('timerDisplay').innerText = 
+        `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    // 토스트 알림창
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMessage');
+      toastMsg.innerText = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2400);
+    }
+
+    // 초기 실행
+    window.addEventListener('DOMContentLoaded', () => {
+      initDate();
+      Object.keys(DEFAULT_CONFIGS).forEach(id => renderMachineSets(id));
+      renderLogsHistory();
+    });
+  </script>
+</body>
+</html>
