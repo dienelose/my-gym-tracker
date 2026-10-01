@@ -113,24 +113,63 @@
 
       <!-- 1. 스탠딩 숄더 프레스 머신 (18번) -->
       <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-standing-shoulder">
-        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=700&q=80" 
-               alt="스탠딩 숄더 프레스 머신" 
-               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Standing+Shoulder+Press';">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-          <div class="absolute top-3 left-3 flex items-center gap-2">
+        <div class="relative h-48 w-full bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 overflow-hidden flex items-center justify-center p-2">
+          <!-- 기구 18번 실물 맞춤형 정밀 그래픽 SVG -->
+          <svg viewBox="0 0 400 190" class="w-full h-full max-h-44 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#475569"/>
+                <stop offset="50%" stop-color="#1e293b"/>
+                <stop offset="100%" stop-color="#0f172a"/>
+              </linearGradient>
+              <linearGradient id="plateGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#334155"/>
+                <stop offset="100%" stop-color="#0f172a"/>
+              </linearGradient>
+            </defs>
+            <!-- 바닥 스탠딩 발판 -->
+            <rect x="70" y="165" width="260" height="12" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+            <path d="M 85 168 L 315 168" stroke="#0ea5e9" stroke-width="1.5" stroke-dasharray="6,4"/>
+            <!-- 후면 메인 지지 기둥 -->
+            <rect x="230" y="30" width="22" height="135" fill="url(#metalGrad)" stroke="#334155" stroke-width="1.5"/>
+            <!-- 18번 번호 스티커 -->
+            <rect x="232" y="38" width="18" height="14" rx="2" fill="#ffffff"/>
+            <text x="241" y="49" font-size="9" font-weight="900" fill="#0f172a" text-anchor="middle">18</text>
+            <!-- 전면 하부 베이스 프레임 -->
+            <path d="M 120 165 L 165 95 L 235 95" fill="none" stroke="url(#metalGrad)" stroke-width="14" stroke-linejoin="round"/>
+            <!-- 피벗 힌지 회전축 -->
+            <circle cx="230" cy="55" r="9" fill="#64748b" stroke="#38bdf8" stroke-width="2"/>
+            <circle cx="230" cy="55" r="4" fill="#0f172a"/>
+            <!-- 가동 레버 암 (사선 뻗은 바) -->
+            <line x1="230" y1="55" x2="135" y2="70" stroke="#334155" stroke-width="12" stroke-linecap="round"/>
+            <line x1="135" y1="70" x2="95" y2="82" stroke="#e2e8f0" stroke-width="8" stroke-linecap="round"/>
+            <!-- 양쪽 손잡이 그립 -->
+            <path d="M 95 82 L 80 92 M 95 82 L 110 72" stroke="#38bdf8" stroke-width="4.5" stroke-linecap="round"/>
+            <!-- 원판 거치 바 & 원판 (Plate) -->
+            <circle cx="215" cy="115" r="28" fill="url(#plateGrad)" stroke="#475569" stroke-width="3"/>
+            <circle cx="215" cy="115" r="14" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+            <text x="215" y="119" font-size="8" font-weight="bold" fill="#94a3b8" text-anchor="middle">PLATE</text>
+            <rect x="195" y="112" width="40" height="6" fill="#94a3b8" rx="2"/>
+            <!-- 서 있는 사용자 실루엣 (어깨 프레스 자세) -->
+            <circle cx="120" cy="85" r="10" fill="#38bdf8" opacity="0.85"/>
+            <path d="M 120 95 L 120 135 L 105 165 M 120 135 L 135 165" stroke="#38bdf8" stroke-width="4" stroke-linecap="round" opacity="0.85"/>
+            <path d="M 120 105 L 100 85 L 90 85" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.85"/>
+            <!-- 위로 밀어올리는 역동적 화살표 -->
+            <path d="M 75 75 L 75 50 M 71 56 L 75 48 L 79 56" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute top-2.5 left-3 flex items-center gap-2">
             <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md flex items-center gap-1">
-              <i class="fa-solid fa-tag text-[10px]"></i> 기구 [ 18번 ]
+              <i class="fa-solid fa-tag text-[10px]"></i> 실물 [ 18번 ] 스티커
             </span>
-            <span class="px-2 py-0.5 bg-blue-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
-              어깨 프레임 & 복부 코어 동시 강화
+            <span class="px-2 py-0.5 bg-blue-500/80 backdrop-blur-md text-white text-[10px] font-bold rounded-md">
+              의자 없음 · 서서 밀기
             </span>
           </div>
-          <div class="absolute bottom-2.5 left-3 right-3 flex items-end justify-between">
+          <div class="absolute bottom-2 left-3 right-3 flex items-end justify-between">
             <div>
-              <h3 class="text-base font-black text-white leading-tight">플레이트 스탠딩 숄더 프레스</h3>
-              <p class="text-[11px] text-slate-300">서서 배에 힘을 주고 위로 밀어 올려 어깨 볼륨과 복부 코어를 동시에 잡습니다.</p>
+              <h3 class="text-sm font-black text-white leading-tight">플레이트 스탠딩 숄더 프레스</h3>
+              <p class="text-[11px] text-slate-300">서서 배에 단단히 힘을 준 상태로 양 손잡이를 머리 위로 힘차게 밉니다.</p>
             </div>
           </div>
         </div>
@@ -156,23 +195,55 @@
 
       <!-- 2. 시티드 체스트 프레스 머신 (37번) -->
       <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-chest-press">
-        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=700&q=80" 
-               alt="시티드 체스트 프레스 머신" 
-               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Chest+Press+Machine';">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-          <div class="absolute top-3 left-3 flex items-center gap-2">
+        <div class="relative h-48 w-full bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 overflow-hidden flex items-center justify-center p-2">
+          <!-- 기구 37번 Kaesun 핀머신 실물 정밀 그래픽 SVG -->
+          <svg viewBox="0 0 400 190" class="w-full h-full max-h-44 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="kaesunTower" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#0f172a"/>
+                <stop offset="30%" stop-color="#1e293b"/>
+                <stop offset="100%" stop-color="#020617"/>
+              </linearGradient>
+            </defs>
+            <!-- 베이스 프레임 -->
+            <rect x="60" y="165" width="280" height="10" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+            <!-- 우측 메인 웨이트 스택 타워 (Kaesun 검은 타워) -->
+            <rect x="250" y="20" width="60" height="145" rx="6" fill="url(#kaesunTower)" stroke="#475569" stroke-width="2"/>
+            <text x="280" y="42" font-size="9" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">kaesun</text>
+            <!-- 37번 스티커 -->
+            <rect x="272" y="48" width="16" height="12" rx="2" fill="#ffffff"/>
+            <text x="280" y="57" font-size="8" font-weight="900" fill="#0f172a" text-anchor="middle">37</text>
+            <!-- 핀 무게 스택 창 -->
+            <rect x="264" y="66" width="32" height="75" fill="#020617" stroke="#334155" stroke-width="1"/>
+            <line x1="264" y1="80" x2="296" y2="80" stroke="#475569"/>
+            <line x1="264" y1="95" x2="296" y2="95" stroke="#475569"/>
+            <line x1="264" y1="110" x2="296" y2="110" stroke="#475569"/>
+            <circle cx="280" cy="95" r="3" fill="#eab308"/> <!-- 선택 노란 핀 -->
+            <!-- 의자 시트 & 등받이 (블랙 가죽) -->
+            <rect x="135" y="60" width="16" height="65" rx="3" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+            <rect x="110" y="125" width="45" height="14" rx="3" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+            <rect x="125" y="139" width="12" height="26" fill="#334155"/>
+            <circle cx="131" cy="148" r="4.5" fill="#eab308"/> <!-- 의자 높이 노란 레버 -->
+            <!-- 프레스 암 (손잡이) -->
+            <path d="M 230 65 L 175 90 L 145 92" fill="none" stroke="#38bdf8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="145" cy="92" r="5" fill="#e2e8f0" stroke="#0f172a" stroke-width="2"/>
+            <!-- 하부 어시스트 발판 레버 -->
+            <rect x="90" y="160" width="35" height="6" rx="2" fill="#94a3b8"/>
+            <!-- 전방으로 미는 화살표 -->
+            <path d="M 140 80 L 105 80 M 115 74 L 103 80 L 115 86" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute top-2.5 left-3 flex items-center gap-2">
             <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md">
-              기구 [ 37번 ]
+              실물 [ 37번 ] 스티커
             </span>
-            <span class="px-2 py-0.5 bg-emerald-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
-              가슴 중앙 두께감
+            <span class="px-2 py-0.5 bg-emerald-500/80 backdrop-blur-md text-white text-[10px] font-bold rounded-md">
+              가슴 중앙 볼륨
             </span>
           </div>
-          <div class="absolute bottom-2.5 left-3 right-3">
-            <h3 class="text-base font-black text-white leading-tight">시티드 체스트 프레스 머신</h3>
-            <p class="text-[11px] text-slate-300">손잡이를 유두 라인에 맞추고 가슴 전체 부피를 만들어 처짐을 방지합니다.</p>
+          <div class="absolute bottom-2 left-3 right-3">
+            <h3 class="text-sm font-black text-white leading-tight">시티드 체스트 프레스 머신 (Kaesun)</h3>
+            <p class="text-[11px] text-slate-300">노란 레버로 의자를 조절해 손잡이를 가슴 중앙에 맞추고 앞으로 밉니다.</p>
           </div>
         </div>
 
@@ -197,23 +268,44 @@
 
       <!-- 3. 펙덱 플라이 머신 (Kaesun) -->
       <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-pec-fly">
-        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=700&q=80" 
-               alt="펙덱 플라이 머신" 
-               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Pec+Deck+Fly';">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-          <div class="absolute top-3 left-3 flex items-center gap-2">
+        <div class="relative h-48 w-full bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 overflow-hidden flex items-center justify-center p-2">
+          <!-- Kaesun 펙덱 플라이 정밀 그래픽 SVG -->
+          <svg viewBox="0 0 400 190" class="w-full h-full max-h-44 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
+            <!-- 바닥 지지대 -->
+            <rect x="80" y="165" width="240" height="10" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+            <!-- 중앙 수직 타워 (Kaesun) -->
+            <rect x="175" y="20" width="50" height="145" rx="5" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+            <text x="200" y="42" font-size="8.5" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">kaesun</text>
+            <!-- 상단 회전 캠 & 각도조절 노란 핀 -->
+            <circle cx="160" cy="22" r="14" fill="#334155" stroke="#64748b" stroke-width="1.5"/>
+            <circle cx="240" cy="22" r="14" fill="#334155" stroke="#64748b" stroke-width="1.5"/>
+            <circle cx="160" cy="18" r="4" fill="#eab308"/>
+            <circle cx="240" cy="18" r="4" fill="#eab308"/>
+            <!-- 양쪽 버터플라이 플라이 암 (가슴 모으는 팔) -->
+            <path d="M 160 22 L 125 55 L 125 110" fill="none" stroke="#475569" stroke-width="7" stroke-linecap="round"/>
+            <path d="M 240 22 L 275 55 L 275 110" fill="none" stroke="#475569" stroke-width="7" stroke-linecap="round"/>
+            <!-- 수직 팔받침 패드 & 손잡이 -->
+            <rect x="117" y="65" width="16" height="40" rx="4" fill="#020617" stroke="#38bdf8" stroke-width="2"/>
+            <rect x="267" y="65" width="16" height="40" rx="4" fill="#020617" stroke="#38bdf8" stroke-width="2"/>
+            <!-- 중앙 시트 및 등받이 -->
+            <rect x="190" y="70" width="20" height="55" rx="3" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+            <rect x="180" y="125" width="40" height="12" rx="3" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+            <!-- 중앙으로 모으는 안쪽 화살표 -->
+            <path d="M 100 85 Q 140 85 155 85 M 147 79 L 157 85 L 147 91" fill="none" stroke="#a855f7" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M 300 85 Q 260 85 245 85 M 253 79 L 243 85 L 253 91" fill="none" stroke="#a855f7" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute top-2.5 left-3 flex items-center gap-2">
             <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md">
-              Kaesun 머신
+              Kaesun 타워 상단 원형 캠
             </span>
-            <span class="px-2 py-0.5 bg-purple-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
-              가슴 모으기 & 안쪽 골 형성
+            <span class="px-2 py-0.5 bg-purple-500/80 backdrop-blur-md text-white text-[10px] font-bold rounded-md">
+              가슴 모으기 & 골 형성
             </span>
           </div>
-          <div class="absolute bottom-2.5 left-3 right-3">
-            <h3 class="text-base font-black text-white leading-tight">펙덱 플라이 (가슴 모으기)</h3>
-            <p class="text-[11px] text-slate-300">벌어진 가슴을 안쪽으로 강하게 조여 윤곽을 또렷하게 세워줍니다.</p>
+          <div class="absolute bottom-2 left-3 right-3">
+            <h3 class="text-sm font-black text-white leading-tight">펙덱 플라이 (Pec Deck Fly)</h3>
+            <p class="text-[11px] text-slate-300">팔꿈치를 고정하고 가슴 중앙으로 큰 나무를 껴안듯 모아줍니다.</p>
           </div>
         </div>
 
@@ -238,23 +330,44 @@
 
       <!-- 4. 시티드 레그 프레스 머신 (36번) -->
       <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-leg-press">
-        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1434682881908-b43d0467b798?auto=format&fit=crop&w=700&q=80" 
-               alt="시티드 레그 프레스 머신" 
-               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Seated+Leg+Press';">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-          <div class="absolute top-3 left-3 flex items-center gap-2">
+        <div class="relative h-48 w-full bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 overflow-hidden flex items-center justify-center p-2">
+          <!-- 기구 36번 시티드 레그 프레스 실물 정밀 그래픽 SVG -->
+          <svg viewBox="0 0 400 190" class="w-full h-full max-h-44 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
+            <!-- 수평 메인 슬라이딩 레일 프레임 -->
+            <rect x="50" y="155" width="280" height="12" rx="3" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+            <!-- 우측 Kaesun 웨이트 타워 -->
+            <rect x="235" y="25" width="55" height="135" rx="5" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+            <text x="262" y="44" font-size="8.5" font-weight="900" fill="#ffffff" text-anchor="middle">kaesun</text>
+            <!-- 36번 스티커 -->
+            <rect x="254" y="50" width="16" height="12" rx="2" fill="#ffffff"/>
+            <text x="262" y="59" font-size="8" font-weight="900" fill="#0f172a" text-anchor="middle">36</text>
+            <!-- 전면 대형 마름모 발판 (Foot Plate) -->
+            <rect x="75" y="65" width="16" height="85" rx="3" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
+            <line x1="77" y1="75" x2="89" y2="75" stroke="#64748b"/>
+            <line x1="77" y1="95" x2="89" y2="95" stroke="#64748b"/>
+            <line x1="77" y1="115" x2="89" y2="115" stroke="#64748b"/>
+            <line x1="77" y1="135" x2="89" y2="135" stroke="#64748b"/>
+            <!-- 후방 조절식 의자 시트 카트 -->
+            <rect x="180" y="145" width="45" height="10" rx="2" fill="#38bdf8"/>
+            <path d="M 195 90 L 180 145 M 180 145 L 150 145" stroke="#0f172a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 195 90 L 180 145 M 180 145 L 150 145" stroke="#64748b" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- 의자 뒤 노란 등받이 조절 핀 -->
+            <circle cx="202" cy="120" r="4" fill="#eab308"/>
+            <!-- 발판 앞으로 밀어내는 파워 화살표 -->
+            <path d="M 140 105 L 98 105 M 108 98 L 96 105 L 108 112" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute top-2.5 left-3 flex items-center gap-2">
             <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md">
-              기구 [ 36번 ]
+              실물 [ 36번 ] 스티커
             </span>
-            <span class="px-2 py-0.5 bg-blue-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
-              대근육 기초대사량 폭발
+            <span class="px-2 py-0.5 bg-blue-500/80 backdrop-blur-md text-white text-[10px] font-bold rounded-md">
+              하체 대근육 칼로리 소모
             </span>
           </div>
-          <div class="absolute bottom-2.5 left-3 right-3">
-            <h3 class="text-base font-black text-white leading-tight">시티드 레그 프레스 머신</h3>
-            <p class="text-[11px] text-slate-300">하체 대근육을 써서 뱃살 피하지방을 태울 전신 칼로리를 소모합니다.</p>
+          <div class="absolute bottom-2 left-3 right-3">
+            <h3 class="text-sm font-black text-white leading-tight">시티드 레그 프레스 머신 (Kaesun)</h3>
+            <p class="text-[11px] text-slate-300">발판 중앙에 발을 대고 무릎을 95%만 지그시 밀어냅니다.</p>
           </div>
         </div>
 
@@ -279,23 +392,37 @@
 
       <!-- 5. 천국의 계단 (ORGO) -->
       <div class="bg-gradient-to-br from-slate-900 via-rose-950/20 to-slate-900 border border-rose-800/40 rounded-2xl overflow-hidden shadow-lg">
-        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=700&q=80" 
-               alt="천국의 계단 스텝밀" 
-               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Stair+Climber+ORGO';">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
-          <div class="absolute top-3 left-3 flex items-center gap-2">
+        <div class="relative h-48 w-full bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 overflow-hidden flex items-center justify-center p-2">
+          <!-- ORGO 천국의 계단 대형 머신 정밀 그래픽 SVG -->
+          <svg viewBox="0 0 400 190" class="w-full h-full max-h-44 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
+            <!-- 거대 계단 몸체 (사선 대형 박스) -->
+            <path d="M 60 165 L 140 165 L 260 70 L 260 165 Z" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+            <path d="M 120 165 L 255 65 L 290 65 L 290 165 L 120 165 Z" fill="#020617" stroke="#475569" stroke-width="2"/>
+            <!-- 측면 대형 흰색 ORGO 로고 -->
+            <text x="200" y="130" font-size="28" font-weight="900" fill="#ffffff" font-family="sans-serif" letter-spacing="2">ORGO</text>
+            <!-- ORGO 알약 타원 심볼 -->
+            <rect x="200" y="138" width="55" height="18" rx="9" fill="#e2e8f0"/>
+            <rect x="215" y="142" width="25" height="10" rx="5" fill="#020617"/>
+            <!-- 굴러가는 회전 계단 단면 -->
+            <path d="M 125 155 L 145 155 L 145 138 L 168 138 L 168 120 L 192 120 L 192 102 L 216 102 L 216 85 L 240 85 L 240 68" fill="none" stroke="#f43f5e" stroke-width="3" stroke-linecap="round"/>
+            <!-- 상단 손잡이 핸들레일 & 터치스크린 모니터 -->
+            <path d="M 110 165 L 245 42 L 310 42" fill="none" stroke="#64748b" stroke-width="5" stroke-linecap="round"/>
+            <rect x="285" y="22" width="30" height="22" rx="3" fill="#1e293b" stroke="#f43f5e" stroke-width="1.5"/>
+            <!-- 계단 오르는 동작 화살표 -->
+            <path d="M 130 135 L 180 90 M 170 88 L 182 88 L 182 100" fill="none" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute top-2.5 left-3 flex items-center gap-2">
             <span class="px-2.5 py-1 bg-rose-600 text-white font-black text-xs rounded-lg shadow-md">
-              ORGO 대형 머신
+              측면 대형 [ ORGO ] 로고
             </span>
-            <span class="px-2 py-0.5 bg-rose-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
+            <span class="px-2 py-0.5 bg-rose-500/80 backdrop-blur-md text-white text-[10px] font-bold rounded-md">
               아랫배·옆구리 지방 소각
             </span>
           </div>
-          <div class="absolute bottom-2.5 left-3 right-3">
-            <h3 class="text-base font-black text-white leading-tight">천국의 계단 (Stair Climber) · 15분</h3>
-            <p class="text-[11px] text-slate-300">러닝머신의 2배 지방 연소. 가슴을 펴고 속도 4~6으로 15분 지속합니다.</p>
+          <div class="absolute bottom-2 left-3 right-3">
+            <h3 class="text-sm font-black text-white leading-tight">천국의 계단 (Stair Climber) · 15분</h3>
+            <p class="text-[11px] text-slate-300">상체를 세우고 발바닥 전체로 지그시 계단을 밟으며 지속합니다.</p>
           </div>
         </div>
 
@@ -334,23 +461,42 @@
 
       <!-- 1. 랫 풀다운 머신 (PROOF) -->
       <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-lat-pulldown">
-        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=700&q=80" 
-               alt="랫 풀다운 머신" 
-               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Lat+Pulldown+Machine';">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-          <div class="absolute top-3 left-3 flex items-center gap-2">
+        <div class="relative h-48 w-full bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 overflow-hidden flex items-center justify-center p-2">
+          <!-- PROOF 랫 풀다운 머신 정밀 그래픽 SVG -->
+          <svg viewBox="0 0 400 190" class="w-full h-full max-h-44 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
+            <!-- 바닥 지지대 -->
+            <rect x="70" y="165" width="260" height="10" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+            <!-- PROOF 메인 수직 타워 -->
+            <rect x="230" y="15" width="60" height="150" rx="6" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+            <text x="260" y="38" font-size="11" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">PROOF.</text>
+            <!-- 상단 케이블 지지 암 & 도르래 -->
+            <path d="M 230 25 L 140 25 L 140 40" fill="none" stroke="#475569" stroke-width="9" stroke-linecap="round"/>
+            <circle cx="140" cy="40" r="5" fill="#38bdf8"/>
+            <!-- 와이드 은색 랫바 (Lat Bar) -->
+            <path d="M 85 46 Q 140 40 195 46" fill="none" stroke="#e2e8f0" stroke-width="4.5" stroke-linecap="round"/>
+            <line x1="85" y1="46" x2="75" y2="52" stroke="#e2e8f0" stroke-width="4.5" stroke-linecap="round"/>
+            <line x1="195" y1="46" x2="205" y2="52" stroke="#e2e8f0" stroke-width="4.5" stroke-linecap="round"/>
+            <!-- 중앙 케이블 와이어 -->
+            <line x1="140" y1="40" x2="140" y2="43" stroke="#94a3b8" stroke-width="2"/>
+            <!-- 허벅지 고정 원통 롤러 패드 -->
+            <rect x="155" y="110" width="30" height="12" rx="6" fill="#020617" stroke="#38bdf8" stroke-width="2"/>
+            <!-- 시트 안장 -->
+            <rect x="135" y="130" width="55" height="14" rx="3" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+            <!-- 쇄골 쪽으로 당겨 내리는 화살표 -->
+            <path d="M 140 52 L 140 85 M 134 77 L 140 88 L 146 77" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute top-2.5 left-3 flex items-center gap-2">
             <span class="px-2.5 py-1 bg-blue-600 text-white font-black text-xs rounded-lg shadow-md">
-              PROOF 로고 머신
+              타워 상단 [ PROOF. ] 로고
             </span>
-            <span class="px-2 py-0.5 bg-emerald-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
+            <span class="px-2 py-0.5 bg-emerald-500/80 backdrop-blur-md text-white text-[10px] font-bold rounded-md">
               등 너비 & 라운드숄더 교정
             </span>
           </div>
           <div class="absolute bottom-2.5 left-3 right-3">
-            <h3 class="text-base font-black text-white leading-tight">랫 풀다운 (Lat Pulldown)</h3>
-            <p class="text-[11px] text-slate-300">은색 바를 쇄골 쪽으로 당겨 날개뼈를 내리고 굽은 등을 펴줍니다.</p>
+            <h3 class="text-sm font-black text-white leading-tight">랫 풀다운 (PROOF 머신)</h3>
+            <p class="text-[11px] text-slate-300">긴 은색 바를 쇄골 쪽으로 당겨 날개뼈를 아래로 꽉 조여줍니다.</p>
           </div>
         </div>
 
@@ -375,23 +521,39 @@
 
       <!-- 2. 시티드 로우 머신 (OXIZEN / Plate Loaded) -->
       <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-seated-row">
-        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1521804906057-1df8fdb718b7?auto=format&fit=crop&w=700&q=80" 
-               alt="시티드 로우 머신" 
-               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Seated+Row+Machine';">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-          <div class="absolute top-3 left-3 flex items-center gap-2">
+        <div class="relative h-48 w-full bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 overflow-hidden flex items-center justify-center p-2">
+          <!-- 플레이트 로디드 시티드 로우 정밀 그래픽 SVG -->
+          <svg viewBox="0 0 400 190" class="w-full h-full max-h-44 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
+            <!-- 바닥 지지 베이스 -->
+            <rect x="70" y="165" width="260" height="10" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+            <!-- 수직 가슴 받침 패드 기둥 -->
+            <rect x="210" y="55" width="18" height="110" fill="#334155"/>
+            <rect x="225" y="60" width="16" height="50" rx="4" fill="#020617" stroke="#38bdf8" stroke-width="2"/>
+            <!-- 사용자 안장 시트 -->
+            <rect x="250" y="125" width="50" height="14" rx="3" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+            <!-- 당기는 레버 핸들 (수평 및 수직 그립) -->
+            <path d="M 140 145 L 180 85 L 205 85" fill="none" stroke="#475569" stroke-width="8" stroke-linecap="round"/>
+            <line x1="205" y1="75" x2="205" y2="95" stroke="#e2e8f0" stroke-width="4.5" stroke-linecap="round"/>
+            <!-- 원판 거치 바 & 원판 (Plate) -->
+            <circle cx="130" cy="120" r="26" fill="#1e293b" stroke="#475569" stroke-width="3"/>
+            <text x="130" y="123" font-size="7" font-weight="bold" fill="#94a3b8" text-anchor="middle">OXIZEN</text>
+            <!-- 사선 발 지지대 발판 -->
+            <rect x="180" y="145" width="22" height="8" rx="2" fill="#64748b" transform="rotate(-30 180 145)"/>
+            <!-- 몸 쪽으로 당기는 화살표 -->
+            <path d="M 185 85 L 225 85 M 217 79 L 227 85 L 217 91" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute top-2.5 left-3 flex items-center gap-2">
             <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md">
-              가슴패드 로우 머신
+              가슴 패드 지지 로우 머신
             </span>
-            <span class="px-2 py-0.5 bg-blue-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
-              등 안쪽 조이기 & 가슴 리프팅
+            <span class="px-2 py-0.5 bg-blue-500/80 backdrop-blur-md text-white text-[10px] font-bold rounded-md">
+              등 안쪽 조이기 & 가슴 펴기
             </span>
           </div>
           <div class="absolute bottom-2.5 left-3 right-3">
-            <h3 class="text-base font-black text-white leading-tight">시티드 로우 (등 안쪽 조이기)</h3>
-            <p class="text-[11px] text-slate-300">가슴을 패드에 대고 당겨 날개뼈를 모으면 가슴이 자연스레 전방으로 펴집니다.</p>
+            <h3 class="text-sm font-black text-white leading-tight">시티드 로우 (가슴받침 로우)</h3>
+            <p class="text-[11px] text-slate-300">가슴을 패드에 대고 팔꿈치를 뒤로 당겨 양 날개뼈를 꽉 모아줍니다.</p>
           </div>
         </div>
 
@@ -416,23 +578,39 @@
 
       <!-- 3. 시티드 숄더 프레스 머신 (38번) -->
       <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-shoulder-press">
-        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=700&q=80" 
-               alt="시티드 숄더 프레스 머신" 
-               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Shoulder+Press+Machine';">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-          <div class="absolute top-3 left-3 flex items-center gap-2">
+        <div class="relative h-48 w-full bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 overflow-hidden flex items-center justify-center p-2">
+          <!-- 기구 38번 시티드 숄더 프레스 정밀 그래픽 SVG -->
+          <svg viewBox="0 0 400 190" class="w-full h-full max-h-44 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
+            <!-- 바닥 지지대 -->
+            <rect x="70" y="165" width="260" height="10" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+            <!-- 후면 Kaesun 타워 -->
+            <rect x="130" y="20" width="55" height="145" rx="5" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+            <text x="157" y="42" font-size="8.5" font-weight="900" fill="#ffffff" text-anchor="middle">kaesun</text>
+            <!-- 38번 스티커 -->
+            <rect x="150" y="48" width="15" height="12" rx="2" fill="#ffffff"/>
+            <text x="157" y="57" font-size="8" font-weight="900" fill="#0f172a" text-anchor="middle">38</text>
+            <!-- 80도 각도의 의자 등받이 및 시트 -->
+            <rect x="220" y="55" width="16" height="75" rx="3" fill="#020617" stroke="#64748b" stroke-width="2" transform="rotate(8 220 55)"/>
+            <rect x="200" y="130" width="45" height="14" rx="3" fill="#020617" stroke="#64748b" stroke-width="2"/>
+            <circle cx="215" cy="148" r="4" fill="#eab308"/> <!-- 노란 레버 -->
+            <!-- 어깨 위로 뻗은 프레스 암 핸들 -->
+            <path d="M 185 85 L 235 60 L 255 60" fill="none" stroke="#38bdf8" stroke-width="7" stroke-linecap="round"/>
+            <circle cx="255" cy="60" r="5" fill="#e2e8f0" stroke="#0f172a" stroke-width="2"/>
+            <!-- 수직으로 밀어올리는 화살표 -->
+            <path d="M 255 52 L 255 25 M 249 32 L 255 22 L 261 32" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute top-2.5 left-3 flex items-center gap-2">
             <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md">
-              기구 [ 38번 ]
+              실물 [ 38번 ] 스티커
             </span>
-            <span class="px-2 py-0.5 bg-indigo-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
-              어깨 볼륨 & 허리 대비 효과
+            <span class="px-2 py-0.5 bg-indigo-500/80 backdrop-blur-md text-white text-[10px] font-bold rounded-md">
+              어깨 볼륨 & 역삼각형 프레임
             </span>
           </div>
           <div class="absolute bottom-2.5 left-3 right-3">
-            <h3 class="text-base font-black text-white leading-tight">시티드 숄더 프레스 머신</h3>
-            <p class="text-[11px] text-slate-300">어깨 뽕을 채워 상체 역삼각형을 만들면 상대적으로 허리가 가늘어 보입니다.</p>
+            <h3 class="text-sm font-black text-white leading-tight">시티드 숄더 프레스 머신 (Kaesun)</h3>
+            <p class="text-[11px] text-slate-300">손잡이를 귀 옆에서 머리 위로 수직으로 곧게 밀어 올려줍니다.</p>
           </div>
         </div>
 
@@ -457,23 +635,40 @@
 
       <!-- 4. 백 익스텐션 로망체어 (27번) -->
       <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-back-ext">
-        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=700&q=80" 
-               alt="백 익스텐션 로망체어" 
-               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Back+Extension+Bench';">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-          <div class="absolute top-3 left-3 flex items-center gap-2">
+        <div class="relative h-48 w-full bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 overflow-hidden flex items-center justify-center p-2">
+          <!-- 기구 27번 로망체어 실물 정밀 그래픽 SVG -->
+          <svg viewBox="0 0 400 190" class="w-full h-full max-h-44 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
+            <!-- 45도 경사 메인 블랙 프레임 -->
+            <line x1="120" y1="150" x2="250" y2="70" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
+            <line x1="120" y1="150" x2="250" y2="70" stroke="#334155" stroke-width="10" stroke-linecap="round"/>
+            <!-- Y자형 전면 바닥 지지대 -->
+            <path d="M 230 165 L 265 140 L 300 165" fill="none" stroke="#1e293b" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- 27번 번호 스티커 (우측 다리 프레임) -->
+            <rect x="280" y="148" width="16" height="12" rx="2" fill="#ffffff"/>
+            <text x="288" y="157" font-size="8" font-weight="900" fill="#0f172a" text-anchor="middle">27</text>
+            <!-- 2분할 골반/허벅지 지지 패드 -->
+            <rect x="235" y="55" width="28" height="22" rx="5" fill="#020617" stroke="#38bdf8" stroke-width="2"/>
+            <rect x="235" y="79" width="28" height="22" rx="5" fill="#020617" stroke="#38bdf8" stroke-width="2"/>
+            <!-- 하단 발목 고정 원통 롤러 & 발판 -->
+            <rect x="105" y="125" width="18" height="35" rx="7" fill="#020617" stroke="#64748b" stroke-width="2"/>
+            <rect x="90" y="140" width="14" height="25" rx="2" fill="#475569"/>
+            <!-- 양쪽 사이드 손잡이 -->
+            <line x1="262" y1="80" x2="285" y2="80" stroke="#94a3b8" stroke-width="4.5" stroke-linecap="round"/>
+            <!-- 상체 들어올리는 기립근 운동 궤적 곡선 화살표 -->
+            <path d="M 270 120 Q 300 95 285 60 M 292 68 L 285 58 L 278 68" fill="none" stroke="#eab308" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute top-2.5 left-3 flex items-center gap-2">
             <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md">
-              기구 [ 27번 ]
+              실물 [ 27번 ] 스티커 (다리쪽)
             </span>
-            <span class="px-2 py-0.5 bg-amber-500/80 backdrop-blur-md text-slate-950 text-[11px] font-semibold rounded-md">
-              아랫배 튀어나옴 방지 코어
+            <span class="px-2 py-0.5 bg-amber-500/80 backdrop-blur-md text-slate-950 text-[10px] font-bold rounded-md">
+              허리 척추기립근 & 코어
             </span>
           </div>
           <div class="absolute bottom-2.5 left-3 right-3">
-            <h3 class="text-base font-black text-white leading-tight">백 익스텐션 (로망 체어)</h3>
-            <p class="text-[11px] text-slate-300">허리와 둔근을 세워 골반 전방경사를 교정하고 아랫배를 잡아줍니다.</p>
+            <h3 class="text-sm font-black text-white leading-tight">백 익스텐션 (로망 체어)</h3>
+            <p class="text-[11px] text-slate-300">골반을 패드에 대고 허리를 꺾지 않은 채 일직선까지만 들어 올립니다.</p>
           </div>
         </div>
 
@@ -498,23 +693,39 @@
 
       <!-- 5. 유산소: 일립티컬 머신 (E500) -->
       <div class="bg-gradient-to-br from-slate-900 via-emerald-950/20 to-slate-900 border border-emerald-800/40 rounded-2xl overflow-hidden shadow-lg">
-        <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=700&q=80" 
-               alt="일립티컬 머신" 
-               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Elliptical+E500';">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
-          <div class="absolute top-3 left-3 flex items-center gap-2">
+        <div class="relative h-48 w-full bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 overflow-hidden flex items-center justify-center p-2">
+          <!-- E500 일립티컬 머신 정밀 그래픽 SVG -->
+          <svg viewBox="0 0 400 190" class="w-full h-full max-h-44 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
+            <!-- 하단 은색 슬라이딩 빔 (E500 로고) -->
+            <rect x="80" y="152" width="240" height="15" rx="3" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.5"/>
+            <text x="180" y="163" font-size="10" font-weight="900" fill="#475569" letter-spacing="1">E500</text>
+            <!-- 후방 대형 휠 플라이휠 하우징 -->
+            <circle cx="270" cy="130" r="32" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+            <circle cx="270" cy="130" r="18" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+            <!-- 전면 조작부 기둥 및 계기판 모니터 -->
+            <path d="M 125 152 L 140 50 L 145 35" fill="none" stroke="#1e293b" stroke-width="9" stroke-linecap="round"/>
+            <rect x="130" y="25" width="28" height="22" rx="3" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+            <!-- 양쪽 긴 스윙 핸들바 -->
+            <path d="M 140 75 L 120 20" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+            <path d="M 140 75 L 155 20" stroke="#38bdf8" stroke-width="5" stroke-linecap="round"/>
+            <!-- 대형 풋 페달 링크 (Foot Pedal) -->
+            <path d="M 270 130 L 190 145 L 140 75" fill="none" stroke="#334155" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="165" y="138" width="40" height="10" rx="3" fill="#020617" stroke="#38bdf8" stroke-width="1.5"/>
+            <!-- 부드러운 회전 타원 화살표 -->
+            <ellipse cx="270" cy="130" rx="25" ry="12" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="6,4"/>
+          </svg>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute top-2.5 left-3 flex items-center gap-2">
             <span class="px-2.5 py-1 bg-cyan-600 text-white font-black text-xs rounded-lg shadow-md">
-              E500 머신
+              하단 은색 레일 [ E500 ] 로고
             </span>
-            <span class="px-2 py-0.5 bg-emerald-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
+            <span class="px-2 py-0.5 bg-emerald-500/80 backdrop-blur-md text-white text-[10px] font-bold rounded-md">
               관절 무충격 전신 유산소
             </span>
           </div>
           <div class="absolute bottom-2.5 left-3 right-3">
-            <h3 class="text-base font-black text-white leading-tight">일립티컬 머신 또는 경사 트레드밀 · 20분</h3>
-            <p class="text-[11px] text-slate-300">무릎에 충격 없이 전신 지방을 부드럽게 태우며 수면을 방해하지 않습니다.</p>
+            <h3 class="text-sm font-black text-white leading-tight">일립티컬 머신 (E500) · 20분</h3>
+            <p class="text-[11px] text-slate-300">핸들과 페달을 부드럽게 밀고 당기며 무릎 충격 없이 체지방을 연소합니다.</p>
           </div>
         </div>
 
