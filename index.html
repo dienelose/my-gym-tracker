@@ -18,8 +18,6 @@
     .custom-scroll::-webkit-scrollbar { width: 5px; height: 5px; }
     .custom-scroll::-webkit-scrollbar-track { background: #0f172a; }
     .custom-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
-    .active-set { background-color: rgba(37, 99, 235, 0.15); border-color: rgba(59, 130, 246, 0.5); }
-    .completed-set { background-color: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); text-decoration: line-through; }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen pb-28 custom-scroll selection:bg-blue-600 selection:text-white">
@@ -33,7 +31,7 @@
         <div>
           <div class="flex items-center gap-1.5">
             <h1 class="text-base font-extrabold text-white leading-tight">아파트 헬스 트래커</h1>
-            <span class="text-[10px] bg-blue-500/20 text-blue-400 font-bold px-1.5 py-0.5 rounded border border-blue-500/30">기록저장</span>
+            <span class="text-[10px] bg-blue-500/20 text-blue-400 font-bold px-1.5 py-0.5 rounded border border-blue-500/30">기록누적</span>
           </div>
           <p class="text-[11px] text-slate-400">가슴 리프팅 & 뱃살 감량 60분 루틴</p>
         </div>
@@ -42,14 +40,14 @@
       <div class="text-right">
         <div id="todayDateDisplay" class="text-xs font-bold text-slate-200">2026.10.01 (목)</div>
         <span class="text-[10px] text-emerald-400 font-semibold flex items-center justify-end gap-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> 자동 동기화 중
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> 자동 누적 기록 중
         </span>
       </div>
     </div>
   </header>
 
   <main class="max-w-xl mx-auto px-4 mt-4 space-y-4">
-    <!-- 가슴 처짐 개선 & 뱃살 감량 솔루션 브리핑 카드 -->
+    <!-- 맞춤 처방 핵심 포인트 -->
     <div class="bg-gradient-to-br from-indigo-950/70 via-slate-900 to-slate-900 border border-indigo-500/30 rounded-2xl p-4 shadow-xl relative overflow-hidden">
       <div class="flex items-start gap-3">
         <div class="w-9 h-9 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center shrink-0 mt-0.5">
@@ -58,7 +56,7 @@
         <div class="space-y-1">
           <h2 class="text-xs font-bold text-indigo-300 tracking-wide uppercase">맞춤 처방 핵심 포인트</h2>
           <p class="text-xs text-slate-300 leading-relaxed">
-            처진 가슴은 <span class="text-amber-400 font-bold">상부 흉근(인클라인)</span>을 채우고, 뱃살은 <span class="text-rose-400 font-bold">하체 대근육+천국의 계단</span>으로 껍질을 태워야 빠르게 올라붙습니다. 세트별 무게·횟수를 남겨 점진적 과부하를 실천해 보세요!
+            처진 가슴은 <span class="text-amber-400 font-bold">상부 흉근(인클라인)</span>을 채우고, 뱃살은 <span class="text-rose-400 font-bold">하체 대근육+천국의 계단</span>으로 소각합니다. 모든 일자별 기록은 앱 내부에 누적되므로, AI 분석이 필요할 때만 <strong class="text-blue-400">[백업]</strong>을 누르면 단 하나의 통합 파일로 추출됩니다!
           </p>
         </div>
       </div>
@@ -88,6 +86,7 @@
       </div>
     </div>
 
+    <!-- 요일별 탭 -->
     <div class="grid grid-cols-2 gap-2 bg-slate-900 p-1.5 rounded-2xl border border-slate-800 text-xs font-bold">
       <button onclick="switchTab('dayA')" id="btn-dayA" class="py-2.5 rounded-xl transition-all flex flex-col items-center justify-center gap-0.5 bg-blue-600 text-white shadow-md">
         <span class="font-extrabold flex items-center gap-1.5">
@@ -103,54 +102,52 @@
       </button>
     </div>
 
+    <!-- Day A 콘텐츠 -->
     <section id="content-dayA" class="space-y-4">
       <div class="flex items-center justify-between px-1">
         <span class="text-xs font-extrabold text-blue-400 flex items-center gap-1.5">
-          <i class="fa-solid fa-list-check"></i> DAY A : 가슴 상부 리프팅 & 복부 체지방 태우기
+          <i class="fa-solid fa-list-check"></i> DAY A : 가슴 리프팅 & 어깨 코어 & 체지방 소각
         </span>
         <span class="text-[11px] text-slate-400">총 5개 종목</span>
       </div>
 
-      <!-- 1. 인클라인 체스트 프레스 머신 (18번) -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-incline-press">
+      <!-- 1. 스탠딩 숄더 프레스 머신 (18번) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg" id="card-standing-shoulder">
         <div class="relative h-44 w-full bg-slate-950 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=700&q=80" 
-               alt="인클라인 체스트 프레스 머신" 
+          <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=700&q=80" 
+               alt="스탠딩 숄더 프레스 머신" 
                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Incline+Chest+Press';">
+               onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e293b/94a3b8?text=Standing+Shoulder+Press';">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
           <div class="absolute top-3 left-3 flex items-center gap-2">
             <span class="px-2.5 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-lg shadow-md flex items-center gap-1">
               <i class="fa-solid fa-tag text-[10px]"></i> 기구 [ 18번 ]
             </span>
             <span class="px-2 py-0.5 bg-blue-500/80 backdrop-blur-md text-white text-[11px] font-semibold rounded-md">
-              윗가슴 끌어올리기 (1순위)
+              어깨 프레임 & 복부 코어 동시 강화
             </span>
           </div>
           <div class="absolute bottom-2.5 left-3 right-3 flex items-end justify-between">
             <div>
-              <h3 class="text-base font-black text-white leading-tight">플레이트 인클라인 체스트 프레스</h3>
-              <p class="text-[11px] text-slate-300">사선 위로 밀어 쇄골 아래 볼륨을 채워 처진 가슴을 리프팅합니다.</p>
+              <h3 class="text-base font-black text-white leading-tight">플레이트 스탠딩 숄더 프레스</h3>
+              <p class="text-[11px] text-slate-300">서서 배에 힘을 주고 위로 밀어 올려 어깨 볼륨과 복부 코어를 동시에 잡습니다.</p>
             </div>
           </div>
         </div>
 
         <div class="p-4 space-y-3">
           <div class="flex items-center justify-between text-xs bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-            <span class="text-slate-400"><i class="fa-solid fa-info-circle text-blue-400 mr-1"></i>목표: <strong>12~15회 × 4세트</strong></span>
+            <span class="text-slate-400"><i class="fa-solid fa-info-circle text-blue-400 mr-1"></i>목표: <strong>12~15회 × 3세트</strong> (빈 바 시작 추천)</span>
             <span class="text-amber-400 font-bold">휴식: 60초</span>
           </div>
 
-          <!-- 기록 테이블 -->
-          <div class="space-y-1.5" id="sets-incline-press">
-            <!-- 자바스크립트로 세트 렌더링 -->
-          </div>
+          <div class="space-y-1.5" id="sets-standing-shoulder"></div>
 
           <div class="flex items-center justify-between pt-1">
-            <button onclick="addSet('incline-press')" class="text-xs text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-blue-500/10 transition">
+            <button onclick="addSet('standing-shoulder')" class="text-xs text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-blue-500/10 transition">
               <i class="fa-solid fa-plus-circle"></i> 세트 추가
             </button>
-            <button onclick="saveMachineData('incline-press')" class="text-xs bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold py-1.5 px-3 rounded-xl transition flex items-center gap-1">
+            <button onclick="saveMachineData('standing-shoulder')" class="text-xs bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold py-1.5 px-3 rounded-xl transition flex items-center gap-1">
               <i class="fa-solid fa-floppy-disk text-[11px]"></i> 오늘 기록 저장
             </button>
           </div>
@@ -326,6 +323,7 @@
       </div>
     </section>
 
+    <!-- Day B 콘텐츠 -->
     <section id="content-dayB" class="hidden space-y-4">
       <div class="flex items-center justify-between px-1">
         <span class="text-xs font-extrabold text-emerald-400 flex items-center gap-1.5">
@@ -544,25 +542,26 @@
       </div>
     </section>
 
+    <!-- 운동 기록 히스토리 & 백업 섹션 -->
     <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
       <div class="flex items-center justify-between">
         <h3 class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-          <i class="fa-solid fa-clock-rotate-left text-blue-400"></i> 최근 저장된 운동 기록 요약
+          <i class="fa-solid fa-clock-rotate-left text-blue-400"></i> 누적 운동 기록 히스토리
         </h3>
         <div class="flex items-center gap-2">
-          <button onclick="exportData()" class="text-[11px] text-blue-400 hover:text-blue-300 transition flex items-center gap-0.5">
-            <i class="fa-solid fa-download"></i> 백업
+          <button onclick="exportData()" class="text-[11px] text-blue-400 hover:text-blue-300 transition flex items-center gap-0.5 bg-blue-500/10 px-2 py-1 rounded-lg border border-blue-500/20">
+            <i class="fa-solid fa-download"></i> 통합 백업
           </button>
-          <label class="text-[11px] text-emerald-400 hover:text-emerald-300 transition cursor-pointer flex items-center gap-0.5">
+          <label class="text-[11px] text-emerald-400 hover:text-emerald-300 transition cursor-pointer flex items-center gap-0.5 bg-emerald-500/10 px-2 py-1 rounded-lg border border-emerald-500/20">
             <i class="fa-solid fa-upload"></i> 복원
             <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="importData(event)">
           </label>
           <span class="text-slate-700">|</span>
-          <button onclick="clearAllLogs()" class="text-[11px] text-slate-500 hover:text-rose-400 transition">초기화</button>
+          <button onclick="clearAllLogs()" class="text-[11px] text-slate-500 hover:text-rose-400 transition">전체 초기화</button>
         </div>
       </div>
-      <div id="logsHistoryDisplay" class="text-xs text-slate-400 bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
-        기록이 아직 없습니다. 기구별로 오늘 든 무게와 횟수를 입력하고 [저장]을 눌러보세요!
+      <div id="logsHistoryDisplay" class="text-xs text-slate-400 bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2 max-h-56 overflow-y-auto custom-scroll">
+        기록이 아직 없습니다. 기구별로 오늘 든 무게와 횟수를 입력하고 [오늘 기록 저장]을 눌러보세요!
       </div>
     </section>
   </main>
@@ -575,7 +574,7 @@
   <script>
     // 기구별 기본 세트 구성 데이터
     const DEFAULT_CONFIGS = {
-      'incline-press': { defaultKg: 10, defaultReps: 12, setCount: 4, label: '인클라인 프레스 (18번)' },
+      'standing-shoulder': { defaultKg: 0, defaultReps: 12, setCount: 3, label: '스탠딩 숄더 프레스 (18번)' },
       'chest-press': { defaultKg: 25, defaultReps: 12, setCount: 3, label: '시티드 체스트 프레스 (37번)' },
       'pec-fly': { defaultKg: 20, defaultReps: 15, setCount: 3, label: '펙덱 플라이 (Kaesun)' },
       'leg-press': { defaultKg: 40, defaultReps: 15, setCount: 3, label: '시티드 레그 프레스 (36번)' },
@@ -584,6 +583,11 @@
       'shoulder-press': { defaultKg: 15, defaultReps: 12, setCount: 3, label: '시티드 숄더 프레스 (38번)' },
       'back-ext': { defaultKg: 0, defaultReps: 12, setCount: 3, label: '백 익스텐션 (27번)' }
     };
+
+    function getTodayString() {
+      const now = new Date();
+      return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    }
 
     // 오늘 날짜 표시
     function initDate() {
@@ -721,10 +725,8 @@
         return;
       }
       saveMachineData(machineId, false);
-      // 세트 데이터 갱신
       let currentData = getMachineCurrentSets(machineId);
       currentData.splice(idx, 1);
-      // 번호 재정렬
       currentData.forEach((item, i) => { item.set = i + 1; });
       localStorage.setItem(`workout_today_${machineId}`, JSON.stringify(currentData));
       renderMachineSets(machineId);
@@ -765,37 +767,49 @@
       return sets;
     }
 
-    // 기구별 데이터 영구 저장
+    // 기구별 데이터 저장 & 날짜별 누적 히스토리에 기록
     function saveMachineData(machineId, showNotification = true) {
       const sets = getMachineCurrentSets(machineId);
       localStorage.setItem(`workout_today_${machineId}`, JSON.stringify(sets));
 
-      // 히스토리 로그 저장
-      const logKey = 'workout_summary_logs';
-      let logs = JSON.parse(localStorage.getItem(logKey) || '[]');
+      const today = getTodayString();
       const label = DEFAULT_CONFIGS[machineId]?.label || machineId;
-
-      // 같은 기구의 오늘 날짜 엔트리 업데이트
       const completedSets = sets.filter(s => s.done);
       const summaryText = completedSets.length > 0 
         ? `${completedSets.length}세트 완료 (${completedSets.map(s => `${s.kg}kg×${s.reps}회`).join(', ')})`
         : `진행 중 (${sets.length}세트 설정됨)`;
 
-      const existingIndex = logs.findIndex(l => l.machineId === machineId);
+      // 1. 단일 세션 로그 업데이트
+      let logs = JSON.parse(localStorage.getItem('workout_summary_logs') || '[]');
       const entry = {
+        date: today,
         machineId: machineId,
         label: label,
         summary: summaryText,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
 
+      const existingIndex = logs.findIndex(l => l.machineId === machineId);
       if (existingIndex >= 0) {
         logs[existingIndex] = entry;
       } else {
         logs.unshift(entry);
       }
+      localStorage.setItem('workout_summary_logs', JSON.stringify(logs));
 
-      localStorage.setItem(logKey, JSON.stringify(logs));
+      // 2. [핵심] 영구 누적 전체 히스토리(workout_permanent_history)에도 일자별로 누적
+      let permHistory = JSON.parse(localStorage.getItem('workout_permanent_history') || '{}');
+      if (!permHistory[today]) {
+        permHistory[today] = { date: today, workouts: {} };
+      }
+      permHistory[today].workouts[machineId] = {
+        label: label,
+        sets: sets,
+        summary: summaryText,
+        updatedAt: entry.time
+      };
+      localStorage.setItem('workout_permanent_history', JSON.stringify(permHistory));
+
       renderLogsHistory();
 
       if (showNotification) {
@@ -805,19 +819,35 @@
 
     // 유산소 운동 저장
     function saveCardioData(type) {
+      const today = getTodayString();
       const time = document.getElementById(`cardio-time-${type}`).value;
       const level = document.getElementById(`cardio-level-${type}`).value;
       const title = type === 'a' ? '천국의 계단 (ORGO)' : '일립티컬 (E500)';
+      const summaryText = `${time}분 지속 · 속도 ${level}레벨 완료`;
 
-      const logKey = 'workout_summary_logs';
-      let logs = JSON.parse(localStorage.getItem(logKey) || '[]');
-      logs.unshift({
+      let logs = JSON.parse(localStorage.getItem('workout_summary_logs') || '[]');
+      const entry = {
+        date: today,
         machineId: `cardio-${type}`,
         label: title,
-        summary: `${time}분 지속 · 속도 ${level}레벨 완료`,
+        summary: summaryText,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      });
-      localStorage.setItem(logKey, JSON.stringify(logs));
+      };
+      logs.unshift(entry);
+      localStorage.setItem('workout_summary_logs', JSON.stringify(logs));
+
+      // 영구 히스토리 누적
+      let permHistory = JSON.parse(localStorage.getItem('workout_permanent_history') || '{}');
+      if (!permHistory[today]) {
+        permHistory[today] = { date: today, workouts: {} };
+      }
+      permHistory[today].workouts[`cardio-${type}`] = {
+        label: title,
+        summary: summaryText,
+        time: entry.time
+      };
+      localStorage.setItem('workout_permanent_history', JSON.stringify(permHistory));
+
       renderLogsHistory();
       showToast(`🔥 [${title}] 유산소 기록이 저장되었습니다!`);
     }
@@ -834,7 +864,10 @@
       container.innerHTML = logs.map(item => `
         <div class="flex items-center justify-between border-b border-slate-900 pb-1.5 last:border-0">
           <div>
-            <span class="font-bold text-white text-xs block">${item.label}</span>
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-white text-xs">${item.label}</span>
+              <span class="text-[9px] px-1 py-0.2 bg-blue-500/20 text-blue-300 rounded font-mono">${item.date || ''}</span>
+            </div>
             <span class="text-[11px] text-slate-400">${item.summary}</span>
           </div>
           <span class="text-[10px] text-blue-400 font-mono">${item.time}</span>
@@ -844,35 +877,44 @@
 
     // 전체 기록 초기화
     function clearAllLogs() {
-      const confirmed = window.confirm ? true : true; // In iframe, keep direct
+      if (!confirm('지금까지 누적된 모든 운동 기록과 히스토리를 초기화하시겠습니까?')) return;
       Object.keys(DEFAULT_CONFIGS).forEach(key => {
         localStorage.removeItem(`workout_today_${key}`);
       });
       localStorage.removeItem('workout_summary_logs');
+      localStorage.removeItem('workout_permanent_history');
       Object.keys(DEFAULT_CONFIGS).forEach(key => renderMachineSets(key));
       renderLogsHistory();
-      showToast('오늘 기록이 모두 초기화되었습니다.');
+      showToast('모든 기록이 초기화되었습니다.');
     }
 
-    // 데이터 영구 보관용 JSON 백업 (다운로드)
+    // [단일 파일 통합 백업] 파일명: my_workout_history.json
     function exportData() {
-      const backup = {
-        logs: JSON.parse(localStorage.getItem('workout_summary_logs') || '[]'),
-        machines: {}
-      };
+      const permHistory = JSON.parse(localStorage.getItem('workout_permanent_history') || '{}');
+      const currentMachines = {};
       Object.keys(DEFAULT_CONFIGS).forEach(key => {
         const item = localStorage.getItem(`workout_today_${key}`);
-        if (item) backup.machines[key] = JSON.parse(item);
+        if (item) currentMachines[key] = JSON.parse(item);
       });
 
-      const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+      // 단 하나의 통합 파일에 지금까지 쌓인 전체 날짜별 히스토리가 모두 누적되어 저장됩니다.
+      const unifiedBackup = {
+        backupDate: getTodayString(),
+        lastUpdated: new Date().toISOString(),
+        historyByDate: permHistory,
+        currentSettings: currentMachines,
+        recentLogs: JSON.parse(localStorage.getItem('workout_summary_logs') || '[]')
+      };
+
+      const blob = new Blob([JSON.stringify(unifiedBackup, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `gym_workout_backup_${new Date().toISOString().slice(0, 10)}.json`;
+      // 파일 이름을 고정하여 여러 개가 생기지 않고 하나로 관리되도록 설정
+      a.download = `my_workout_history.json`;
       a.click();
       URL.revokeObjectURL(url);
-      showToast('📥 운동 기록 백업 파일이 저장되었습니다.');
+      showToast('📥 1개의 통합 히스토리 파일(my_workout_history.json)로 저장되었습니다.');
     }
 
     // 데이터 복원 (파일 업로드)
@@ -884,17 +926,20 @@
       reader.onload = function(e) {
         try {
           const parsed = JSON.parse(e.target.result);
-          if (parsed.logs) {
-            localStorage.setItem('workout_summary_logs', JSON.stringify(parsed.logs));
+          if (parsed.historyByDate) {
+            localStorage.setItem('workout_permanent_history', JSON.stringify(parsed.historyByDate));
           }
-          if (parsed.machines) {
-            Object.keys(parsed.machines).forEach(key => {
-              localStorage.setItem(`workout_today_${key}`, JSON.stringify(parsed.machines[key]));
+          if (parsed.recentLogs) {
+            localStorage.setItem('workout_summary_logs', JSON.stringify(parsed.recentLogs));
+          }
+          if (parsed.currentSettings) {
+            Object.keys(parsed.currentSettings).forEach(key => {
+              localStorage.setItem(`workout_today_${key}`, JSON.stringify(parsed.currentSettings[key]));
             });
           }
           Object.keys(DEFAULT_CONFIGS).forEach(id => renderMachineSets(id));
           renderLogsHistory();
-          showToast('📤 운동 기록이 안전하게 복원되었습니다!');
+          showToast('📤 누적 히스토리가 안전하게 복원되었습니다!');
         } catch (err) {
           showToast('올바른 백업 파일 형식이 아닙니다.');
         }
